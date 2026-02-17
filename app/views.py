@@ -21,6 +21,7 @@ def home(request):
 
     return render(request, 'home.html', { 'images': images, 'favourite_list': favourite_list })
     """
+    #Esta función...#
     images = services.getAllImages()
     favourite_list = services.getAllFavourites(request)
 

@@ -29,30 +29,35 @@
 
             {% if images|length == 0 %}
             <div class="col-12">
-            <h2 class="text-center">La búsqueda no arrojó resultados...</h2>
+                <h2 class="text-center">La búsqueda no arrojó resultados...</h2>
             </div>
-  {% else %}
+            {% else %}
 
-    {% for img in images %}
-      <div class="col">
-        <div class="card h-100 shadow-sm">
-          <div class="row g-0">
+                {% for img in images %}
+                    <div class="col">
+                <!-- dinamica bootstrap para alinear y dar color a los bordes -->
+                        <div class="card h-100 shadow-sm border-4
+                                {% if img.status == 'Alive' %} border-success
+                                {% elif img.status == 'Deceased' %} border-secondary
+                                {% else %} border-warning
+                                {% endif %}">
+                                <div class="row g-0">
 
-            <!-- Imagen -->
-            <div class="col-md-4 d-flex align-items-center justify-content-center p-2">
-              <img src="{{ img.image }}"
-                   class="img-fluid rounded-circle"
-                   alt="{{ img.name }}">
-            </div>
+                    <!-- Imagen -->
+                        <div class="col-md-4 d-flex align-items-center justify-content-center p-2">
+                        <img src="{{ img.image }}"
+                        class="img-fluid rounded-circle"
+                        alt="{{ img.name }}">
+                        </div>
 
-            <!-- Contenido -->
-            <div class="col-md-8">
-              <div class="card-body">
-                <h5 class="card-title text-center">{{ img.name }}</h5>
+                    <!-- Contenido -->
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title text-center">{{ img.name }}</h5>
 
-                <div class="alert alert-warning p-2 text-center">
-                  "{{ img.phrase }}"
-                </div>
+                        <div class="alert alert-warning p-2 text-center">
+                        "{{ img.phrase }}"
+                        </div>
 
                 <p class="card-text mb-1">
                   <strong>Género:</strong> {{ img.gender }}

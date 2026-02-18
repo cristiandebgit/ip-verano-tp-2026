@@ -21,8 +21,7 @@ def getAllImages():
         cards.append(card)
 
     return cards
-    pass
-
+ 
 def filterByCharacter(name):
     """
     Filtra las cards de personajes según el nombre proporcionado.
@@ -37,7 +36,7 @@ def filterByCharacter(name):
             filtered_cards.append(card)
 
     return filtered_cards
-    pass
+  
 
 def filterByStatus(status_name):
     """
@@ -53,7 +52,7 @@ def filterByStatus(status_name):
             filtered_cards.append(card)
 
     return filtered_cards
-    pass
+  
 
 # añadir favoritos (usado desde el template 'home.html')
 def saveFavourite(request):
@@ -67,46 +66,16 @@ def saveFavourite(request):
     card.user = get_user(request)
 
     repositories.saveFavourite(card)
-    pass
+
 
 def getAllFavourites(request):
-    """
-    Obtiene todos los favoritos del usuario autenticado.
-    
-    Si el usuario está autenticado, se deben obtener sus favoritos desde el repositorio,
-    transformarlos en Cards usando translator y retornar la lista. Si no está autenticado, se retorna una lista vacía.
-    
-    
-    ##Si no está autenticado → lista vacía
-    ##Si está → convierte cada registro en Card
-    #prueba
-    if request.user.is_authenticated:
-        repo_favs = repositories.getAllFavourites(request.user)
-        cards = []
 
-        for fav in repo_favs:
-            card = translator.fromRepositoryIntoCard({
-                'id': fav.id,
-                'name': fav.name,
-                'gender': fav.gender,
-                'status': fav.status,
-                'occupation': fav.occupation,
-                'phrases': fav.phrases,
-                'age': fav.age,
-                'image': fav.image
-            })
-            cards.append(card)
-
-        return cards
-
-    return []
-    """#prueba
     if request.user.is_authenticated:
         repo_favs = repositories.getAllFavourites(request.user)
         return [fav.name for fav in repo_favs]
 
     return []
-    pass
+ 
 
 def deleteFavourite(request):
     """
@@ -117,4 +86,4 @@ def deleteFavourite(request):
     fav_id = request.POST.get("id")
     if fav_id:
         repositories.deleteFavourite(fav_id)
-    pass
+  

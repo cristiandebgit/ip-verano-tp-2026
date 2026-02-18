@@ -81,9 +81,18 @@
                     <strong>Edad:</strong> {{ img.age }} años
                 </p>
 
-                <p class="card-text mb-1">
-                    <i class="bi bi-circle-fill text-success me-1"></i><!--Agrego icono-->
-                    <strong>Estado:</strong> {{ img.status }}
+                <p class="card-text mb-1"> <!--el icono del estado cambia de color según vivo o fallecido-->
+                     <strong>
+                        {% if img.status == 'Alive' %}
+                            <i class="bi bi-circle-fill text-success"></i>
+                        {% elif img.status == 'Deceased' %}
+                            <i class="bi bi-circle-fill text-secondary"></i>
+                        {% else %}
+                            <i class="bi bi-circle-fill text-warning"></i>
+                        {% endif %}
+                        Estado:
+                    </strong>
+                    {{ img.status }}
                 </p>
 
                 <p class="card-text">

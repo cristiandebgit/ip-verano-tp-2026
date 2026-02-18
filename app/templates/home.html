@@ -54,14 +54,15 @@
                         <div class="col-md-8">
                             <div class="card-body">
                                 <h5 class="card-title text-center">{{ img.name }}</h5>
-                        <!-- se verificó un problema en las frases que se muestran en pantalla y se reemplaza por este codigo-->
-                        <div class="alert alert-warning p-2 text-center">
-                                    "{% if img.phrases %}
-                                    {{ img.phrases.0 }}
+
+                        
+                            <div class="alert alert-warning p-2 text-center">
+                                    {% if img.phrases %}
+                                        "{{ img.phrases.0 }}" <!--accedo al primer elemento de la frase-->
                                     {% else %}
-                                    Sin frase disponible
-                                    {% endif %}"
-                        </div>
+                                        Sin frase disponible
+                                    {% endif %}
+                            </div>
 
                       <!--  Esta parte del codigo solo mostraba comillas en la frase
                         <div class="alert alert-warning p-2 text-center">
@@ -69,7 +70,7 @@
                         </div> -->
 
                 <p class="card-text mb-1">
-                  <strong>Género:</strong> {{ img.gender }}
+                <strong>Género:</strong> {{ img.gender }}
                 </p>
 
                 <p class="card-text mb-1">

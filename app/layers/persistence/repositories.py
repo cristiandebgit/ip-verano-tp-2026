@@ -2,17 +2,21 @@
 from app.models import Favourite
 
 def saveFavourite(fav):
-    fav = Favourite.objects.create(
+    favourite, created = Favourite.objects.get_or_create(
+        user=fav.user,
         name=fav.name,
-        gender=fav.gender,
-        status=fav.status,
         occupation=fav.occupation,
-        phrases=fav.phrases,
-        age=fav.age,
-        image=fav.image,
-        user=fav.user
+        defaults={
+            'gender': fav.gender,
+            'status': fav.status,
+            'phrases': fav.phrases,
+            'age': fav.age,
+            'image': fav.image,
+        }
     )
-    return fav
+    return favourite
+
+
 
 def getAllFavourites(user):
     """

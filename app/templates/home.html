@@ -100,6 +100,32 @@
                     <strong>Ocupación:</strong> {{ img.occupation }}
                 </p>
 
+                <!--gestion de favoritos-->
+                {% if user.is_authenticated %}
+
+                    {% if img.name in favourite_names %}
+                        <button class="btn btn-secondary btn-sm mt-2 w-100" disabled>
+                            <i class="bi bi-star-fill"></i> Ya es favorito
+                        </button>
+                    {% else %}
+                        <form method="post" action="{% url 'agregar-favorito' %}">
+                            {% csrf_token %}
+                            <input type="hidden" name="name" value="{{ img.name }}">
+                            <input type="hidden" name="gender" value="{{ img.gender }}">
+                            <input type="hidden" name="status" value="{{ img.status }}">
+                            <input type="hidden" name="phrases" value="{{ img.phrases.0 }}">
+                            <input type="hidden" name="occupation" value="{{ img.occupation }}">
+                            <input type="hidden" name="image" value="{{ img.image }}">
+                            <input type="hidden" name="age" value="{{ img.age }}">
+
+                            <button type="submit" class="btn btn-warning btn-sm mt-2 w-100">
+                                <i class="bi bi-star"></i> Agregar a favoritos
+                            </button>
+                        </form>
+                    {% endif %}
+
+                {% endif %}
+
               </div>
             </div>
 

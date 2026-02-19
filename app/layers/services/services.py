@@ -74,10 +74,26 @@ def getAllFavourites(request):
 
     if request.user.is_authenticated:
         repo_favs = repositories.getAllFavourites(request.user)
-        return [fav.name for fav in repo_favs]
+
+        cards = []
+        
+        for fav in repo_favs:
+            card = translator.fromRepositoryIntoCard({
+                'id': fav.id,
+                'name': fav.name,
+                'gender': fav.gender,
+                'status': fav.status,
+                'occupation': fav.occupation,
+                'phrases': fav.phrases,
+                'age': fav.age,
+                'image': fav.image
+            })
+            cards.append(card)
+
+        return cards
 
     return []
- 
+
 
 def deleteFavourite(request):
     """

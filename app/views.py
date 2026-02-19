@@ -7,7 +7,7 @@ from django.contrib.auth import logout
 
 def index_page(request):
     return render(request, 'index.html')
-
+#4ta función invoco services.py para traer las imagenes
 def home(request):
     """
     Vista principal que muestra la galería de personajes de Los Simpsons.
@@ -15,21 +15,21 @@ def home(request):
     Esta función debe obtener el listado de imágenes desde la capa de servicios
     y también el listado de favoritos del usuario, para luego enviarlo al template 'home.html'.
     Recordar que los listados deben pasarse en el contexto con las claves 'images' y 'favourite_list'.
-    
     images = []
     favourite_list = []
-
     return render(request, 'home.html', { 'images': images, 'favourite_list': favourite_list })
     """
-    #Esta función...#
     images = services.getAllImages()
     favourite_list = services.getAllFavourites(request)
+    #convierto la lista de favoritos en nombres
+    favourite_names = [fav.name for fav in favourite_list]
 
     return render(request, 'home.html', {
         'images': images,
-        'favourite_list': favourite_list
+        'favourite_list': favourite_list,
+        'favourite_names': favourite_names
     })
-
+#5ta función invoco services.py para realizar la busqueda de personajes
 def search(request):
     """
     Busca personajes por nombre.
@@ -53,8 +53,7 @@ def search(request):
         })
 
     return redirect('home')
-    pass
-
+#6ta función invoco services.py y verificar su status
 def filter_by_status(request):
     """
     Filtra personajes por su estado (Alive/Deceased).
@@ -78,7 +77,7 @@ def filter_by_status(request):
         })
 
     return redirect('home')
-    pass
+
 
 # Estas funciones se usan cuando el usuario está logueado en la aplicación.
 @login_required

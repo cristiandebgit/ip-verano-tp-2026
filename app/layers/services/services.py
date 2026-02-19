@@ -73,35 +73,26 @@ def saveFavourite(request):
 def getAllFavourites(request):
 
     if request.user.is_authenticated:
-        repo_favs = repositories.getAllFavourites(request.user)
-
-        cards = []
-        
-        for fav in repo_favs:
-            card = translator.fromRepositoryIntoCard({
-                'id': fav.id,
-                'name': fav.name,
-                'gender': fav.gender,
-                'status': fav.status,
-                'occupation': fav.occupation,
-                'phrases': fav.phrases,
-                'age': fav.age,
-                'image': fav.image
-            })
-            cards.append(card)
-
-        return cards
+        return repositories.getAllFavourites(request.user)
 
     return []
 
 
-def deleteFavourite(request):
+#def deleteFavourite(request):
     """
     Elimina un favorito de la base de datos.
     
     Se debe obtener el ID del favorito desde el POST y eliminarlo desde el repositorio.
     """
+#actualizo la función delete ya que no estaba reflejandose el borrado
+    #fav_id = request.POST.get("id")
+
+    #if fav_id and request.user.is_authenticated:
+    #    repositories.deleteFavourite(fav_id, request.user)
+
+def deleteFavourite(request):
     fav_id = request.POST.get("id")
+
     if fav_id:
-        repositories.deleteFavourite(fav_id)
+        repositories.deleteFavourite(fav_id, request.user)
   

@@ -23,9 +23,8 @@ def getAllFavourites(user):
     Obtiene todos los favoritos de un usuario desde la base de datos.
     """
     return Favourite.objects.filter(user=user)
-    pass
-
-def deleteFavourite(favId):
-    favourite = Favourite.objects.get(id=favId)
-    favourite.delete()
+    
+#actualizo la función borrar favorito, porque no estaba validando el usuario
+def deleteFavourite(favId, user):
+    Favourite.objects.filter(id=favId, user=user).delete()
     return True

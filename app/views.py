@@ -87,11 +87,15 @@ def getAllFavouritesByUser(request):
     """
     favourite_list = services.getAllFavourites(request)
 
-    return render(request, 'home.html', {
+    #return render(request, 'home.html', {
+    #    'images': services.getAllImages(),
+    #    'favourite_list': favourite_list
+    
+    ##actualizo el redireccionamiento a "FAVOURITES"   
+    return render(request, 'favourites.html', {
         'images': services.getAllImages(),
         'favourite_list': favourite_list
     })
-    pass
 
 @login_required
 def saveFavourite(request):

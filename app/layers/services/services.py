@@ -6,6 +6,7 @@ from ..persistence import repositories
 from ..utilities import translator
 from django.contrib.auth import get_user
 
+##Esta es la primera función implementada, es funadamental para obtener las cards, es la base de todo
 def getAllImages():
     """
     Obtiene todas las imágenes de personajes desde la API y las convierte en objetos Card.
@@ -21,23 +22,24 @@ def getAllImages():
         cards.append(card)
 
     return cards
- 
+##2da función implementada, filtro de busqueda por personaje
 def filterByCharacter(name):
     """
     Filtra las cards de personajes según el nombre proporcionado.
     
     Se debe filtrar los personajes cuyo nombre contenga el parámetro recibido. Retorna una lista de Cards filtradas.
     """
+    
     all_cards = getAllImages()
     filtered_cards = []
 
     for card in all_cards:
-        if name.lower() in card.name.lower(): #Case insensitive
+        if name.lower() in card.name.lower(): #comparo ambas variables con el mismo formato
             filtered_cards.append(card)
 
     return filtered_cards
   
-
+# 3ra función implementada, filtro status
 def filterByStatus(status_name):
     """
     Filtra las cards de personajes según su estado (Alive/Deceased).

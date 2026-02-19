@@ -24,7 +24,28 @@ def fromRequestIntoCard(object):
 
 
 # Usado cuando la información viene del template, para transformarla en una Card antes de guardarla en la base de datos.
+#V2: aqui encontramos un problema que rompe el guardado del favorito con age. cuando edad no es numerico el post es = none
+#def fromTemplateIntoCard(templ): 
+#   card = Card(
+#        name=templ.POST.get("name"),
+#        gender=templ.POST.get("gender"),
+#        status=templ.POST.get("status"),
+#        phrases=templ.POST.get("phrases"),
+#        occupation=templ.POST.get("occupation"),
+#        image=templ.POST.get("image"),
+#        age=templ.POST.get("age")
+#   )
+#    return card
+
 def fromTemplateIntoCard(templ): 
+    raw_age = templ.POST.get("age")
+
+    # Limpieza del dato
+    try:
+        age = int(raw_age) if raw_age not in (None, "", "None") else None
+    except ValueError:
+        age = None
+
     card = Card(
         name=templ.POST.get("name"),
         gender=templ.POST.get("gender"),
@@ -32,10 +53,9 @@ def fromTemplateIntoCard(templ):
         phrases=templ.POST.get("phrases"),
         occupation=templ.POST.get("occupation"),
         image=templ.POST.get("image"),
-        age=templ.POST.get("age")
+        age=age
     )
     return card
-
 
 # Cuando la información viene de la base de datos, para transformarla en una Card antes de mostrarla.
 def fromRepositoryIntoCard(repo_dict):
